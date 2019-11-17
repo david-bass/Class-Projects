@@ -1,0 +1,141 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue May  1 10:41:06 2018
+
+@author: davidbass
+"""
+
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Apr 30 11:44:36 2018
+
+@author: davidbass
+"""
+
+"""#!/usr/local/bin python3"""
+
+# Future ask what the blocks are for each part that we want to build, then build all at once.  Save output as csv with indentation
+# Have layered input based on the first question?  IE: Is this an integrated rack?  Is this a shared CZ?  
+# Add in all of the site location ID numbers, and user numbers.  Then add in to ask for name and site.
+# Add in to ask how many ILO switches.
+
+# Define subnets first
+mask32 = "255.255.255.255"
+mask31 = "255.255.255.254"
+mask30 = "255.255.255.252"
+mask29 = "255.255.255.248"
+mask28 = "255.255.255.240"
+mask27 = "255.255.255.224"
+mask26 = "255.255.255.192"
+mask25 = "255.255.255.128"
+mask24 = "255.255.255.0"
+
+
+
+# create the subnet calculator function
+def subnet_creator(subnetInput,sizeInput):
+    """
+    Takes the subnet, and the size.
+    Then calculates mask, HSRP address, router 1, and router 2 address
+    """
+    if size == str("31"):
+       split_router1_ip = int(subnet_split_ip)
+       split_router2_ip = int(subnet_split_ip) + 1
+       return split_router1_ip
+       return split_router2_ip
+    elif size < "31":
+       split_router1_hsrp_ip = int(subnet_split_ip) + 1
+       split_router1_ip = int(subnet_split_ip) + 2
+       split_router2_ip = int(subnet_split_ip) + 3
+       # Figure out what the subnet mask is
+       for i in (size):
+           if size == "32":
+               mask = mask32
+               return(mask)
+           elif size == "30":
+               mask = mask30
+               return(mask)
+           elif size == "29":
+               mask = mask29
+               return(mask)
+           elif size == "28":
+               mask = mask28
+               return(mask)
+           elif size == "27":
+               mask = mask27
+               return(mask)
+           elif size == "26":
+               mask = mask26
+               return(mask)
+           elif size == "25":
+               mask = mask25
+               return(mask)
+           elif size == "24":
+               mask = mask24
+               return(mask)
+    return split_router1_hsrp_ip
+    return split_router1_ip
+    return split_router2_ip
+
+
+
+router1 = input("What is the host name of the first router? ")
+router2 = input("What is the host name of the second router? ")
+#Define the ilo switch name off of the router1 and router 2 names
+subnetInput = input("What is the subnet? ")
+size = input("What is the size of the subnet? ")
+
+
+# Figure out the subnet size in bits?
+# split the subnet raw input
+
+
+subnet_split = subnetInput.split(".")
+subnet_24orGreator_firstOctects = subnet_split[0:3]
+subnet_split_ip = subnet_split[3]
+
+print (subnet_split)
+print (subnet_24orGreator_firstOctects)
+print (subnet_split_ip)
+
+# take the subnet number after split and run in the subnet_creator function 
+#call the function using the input as the paramaters
+subnet_creator(subnetInput = subnet_split_ip, sizeInput = size)       
+       # take the size and find the mask
+       # compare the input to pre defined masks, and if equal then mask is True
+#   return split_router1_hsrp_ip
+#   return split_router1_ip
+#   return split_router2_ip
+#  return mask
+#split_router1_hsrp_ip = split_router1_hsrp_ip
+#split_router1_ip = split_router1_ip
+#split_router2_ip = split_router2_ip
+#mask = mask
+
+#       print(split_router1_hsrp_ip)
+#       print(split_router1_ip = split_router1_ip)
+#       print(split_router2_ip = split_router2_ip)
+# print the output of the function as a test
+print(split_router1_hsrp_ip)
+print(split_router1_ip)
+print(split_router2_ip)
+print(mask)
+
+#join the function output back to the original list of the first 3 octets of the subnet
+join_list_router1 = subnet_24orGreator_firstOctects.append('split_router1_ip')
+join_list_router2 = subnet_24orGreator_firstOctects.append('split_router2_ip')
+join_list_router1_hsrp = subnet_24orGreator_firstOctects.append('split_router1_hsrp_ip')
+
+"""
+#rejoin the list as a valid ip addresses
+joined_router1 = '.'.join(join_list_router1)
+joined_router2 = '.'.join(join_list_router2)
+joined_router1_hsrp = '.'.join(join_list_router1_hsrp)
+
+#print out the actual IP addresses
+print("Router1's info is: ", joined_router1_hsrp, + joined_router1)
+print("Router2's info is: ", joined_router2)
+print("The mask is: ", mask)
+"""
